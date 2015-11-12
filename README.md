@@ -18,4 +18,5 @@
 * Clone this sources from Git
 * Copy files to project 
 * It will start VM creation `vagrant up`
+* After VM creat, run `chmod +x init && ./init --env=Development --overwrite=All && ./yii migrate/up`
 
