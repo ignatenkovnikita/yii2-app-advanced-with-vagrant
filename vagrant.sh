@@ -8,9 +8,6 @@ sitename=$(echo "$5")
 databasename=$(echo "$6")
 databasepassword=$(echo "$7")
 
-
-database_name=postgres
-database_password=postgres
 # Helpers
 composer="hhvm /usr/local/bin/composer"
 
@@ -24,6 +21,7 @@ if ! grep --quiet "swapfile" /etc/fstab; then
 fi
 
 # Configuring timezone
+echo "* * * * CONFIGURE TIMEZONE ${timezone} * * * *"
 echo ${timezone} | sudo tee /etc/timezone
 sudo dpkg-reconfigure --frontend noninteractive tzdata
 
@@ -34,11 +32,11 @@ if [ ! -f /etc/apt/sources.list.d/hhvm.list ]; then
 fi
 
 # Configuring server software
-echo "* * * * MAKE DATABASE * * * *"
+echo "* * * * MAKE DATABASE ${databasename} * * * *"
 sudo su - postgres -c "echo \"ALTER ROLE postgres WITH password '${databasepassword}';\" | psql"
 sudo su - postgres -c "createdb ${databasename} -E utf8 -T template0"
 
-
+echo "* * * * SYSTEM UPDATE AND UPGRADE PACKAGES ${packages} * * * *"
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install -y ${packages}
@@ -55,6 +53,7 @@ if ! grep --quiet '^xdebug.remote_enable = on$' /etc/php5/mods-available/xdebug.
 fi
 
 # install composer
+echo "* * * * INSTALL COMPOSER * * * *"
 if [ ! -f /usr/local/bin/composer ]; then
 	sudo curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
     ${composer} global require fxp/composer-asset-plugin --prefer-dist
@@ -66,6 +65,7 @@ ${composer} config --global github-oauth.github.com ${github_token}
 
 
 # init application
+echo "* * * * COMPOSER UPDATE OR INSTALL * * * *"
 if [ ! -d /var/www/vendor ]; then
     cd /var/www && ${composer} install --prefer-dist --optimize-autoloader
 else
@@ -74,13 +74,13 @@ fi
 
 # create nginx config
 if [ ! -f /etc/nginx/sites-enabled/${sitename} ]; then
-  echo "* * * * CONFIGURE SITE * * * *"
-    sudo sed -e "s/\${site_name}/$sitename/"  /var/www/vhost.conf.dist > /var/www/vhost.conf
+    echo "* * * * CONFIGURE SITE ${sitename}* * * *"
+    sudo sed -e "s/\${site_name}/${sitename}/"  /var/www/vhost.conf.dist > /var/www/vhost.conf
     sudo ln -s /var/www/vhost.conf /etc/nginx/sites-enabled/${sitename}
 fi
 
-php /var/www/console/yii app/setup --interactive=0
-
+#php /var/www/console/yii app/setup --interactive=0
+echo "* * * * RESTART SERVICES * * * *"
 sudo service postgresql restart
 sudo service php5-fpm restart
 sudo service nginx restart

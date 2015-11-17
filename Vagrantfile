@@ -22,7 +22,8 @@ packages = [
     "wget",
     "curl",
     "htop",
-    "hhvm"
+    "hhvm",
+    "redis-server"
 ]
 
 Vagrant.configure(2) do |config|
