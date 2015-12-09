@@ -58,6 +58,8 @@
 <ul>
 <li>Clone this sources from Git</li>
 <li>Copy files to project </li>
+<li>copy vagrant/vagrant.yaml.dist to vagrant/vagrant.yaml</li>
+<li>change name, sitename, databasename, databasepassword and add <a href="https://github.com/settings/tokens">github token</a> </li>
 <li>It will start VM creation <code>vagrant up</code>
 </li>
 <li>After VM creat, run <code>chmod +x init &amp;&amp; ./init --env=Development --overwrite=All &amp;&amp; ./yii migrate/up</code>
@@ -68,10 +70,10 @@
 <a id="description-url" class="anchor" href="#description-url" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description url</h3>
 
 <ul>
-<li>fronted - /</li>
-<li>backend - /admin</li>
-<li>test frontend url - test./</li>
-<li>test backend url - test./admin</li>
+<li>fronted - your_suite/</li>
+<li>backend - your_suite/admin</li>
+<li>test frontend url - test.your_suite/</li>
+<li>test backend url - test.your_suite/admin</li>
 </ul>
 
       <footer class="site-footer">
