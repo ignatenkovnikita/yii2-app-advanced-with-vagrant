@@ -19,12 +19,14 @@
 ### RUN
 * Clone this sources from Git
 * Copy files to project 
+* copy vagrant/vagrant.yaml.dist to vagrant/vagrant.yaml
+* change name, sitename, databasename, databasepassword and add [github token](https://github.com/settings/tokens) 
 * It will start VM creation `vagrant up`
 * After VM creat, run `chmod +x init && ./init --env=Development --overwrite=All && ./yii migrate/up`
  
 
 ### Description url
-* fronted - <your_suite>/
-* backend - <your_suite>/admin
-* test frontend url - test.<your_suite>/
-* test backend url - test.<your_suite>/admin
+* fronted - your_suite/
+* backend - your_suite/admin
+* test frontend url - test.your_suite/
+* test backend url - test.your_suite/admin
