@@ -1,0 +1,14 @@
+vm:
+  memory: 1536
+  cpus: 1
+  name: <your-name>
+system:
+  swapsize: 1024
+  timezone: Europe/Moscow
+  sitename: <your-sitename>
+  databasename: <your-databasename>
+  databasepassword: <your-databasepassword>
+network:
+  ip: 192.168.33.10
+github:
+  token: <your-github-api-token>
