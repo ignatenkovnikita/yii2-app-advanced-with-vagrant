@@ -3,7 +3,7 @@
 
 # OPTIONS
 require 'yaml'
-options = YAML.load_file File.join(File.dirname(__FILE__), 'vagrant.yaml')
+options = YAML.load_file File.join(File.dirname(__FILE__), 'vagrant/vagrant.yaml')
 domains = [
     options['system']['sitename']
 ]
@@ -27,7 +27,7 @@ packages = [
 ]
 
 Vagrant.configure(2) do |config|
-  config.vm.post_up_message = "Done! Now you can access site at #{options['system']['sitename']}"
+  config.vm.post_up_message = "Done! Now you can access site at front - #{options['system']['sitename']}, backend - #{options['system']['sitename']}/admin, test env - test.#{options['system']['sitename']}"
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
     vb.memory = options['vm']['memory']
@@ -49,7 +49,7 @@ Vagrant.configure(2) do |config|
   config.hostmanager.include_offline    = true
   config.hostmanager.aliases            = domains
 
-  config.vm.provision "shell", path: "./vagrant.sh", args: [
+  config.vm.provision "shell", path: "./vagrant/vagrant.sh", args: [
     packages.join(" "),
     options['github']['token'],
     options['system']['swapsize'],
