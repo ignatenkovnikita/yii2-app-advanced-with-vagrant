@@ -1,4 +1,6 @@
 # yii2 App Advanced Template run with vagrant
+* This config add support vagrant for your web application(yii2 advanced template)
+* And add support test environment at test.<you_suite>
 
 ## Out of the box...
 * Ubuntu
@@ -19,4 +21,10 @@
 * Copy files to project 
 * It will start VM creation `vagrant up`
 * After VM creat, run `chmod +x init && ./init --env=Development --overwrite=All && ./yii migrate/up`
+ 
 
+### Description url
+* fronted - <your_suite>/
+* backend - <your_suite>/admin
+* test frontend url - test.<your_suite>/
+* test backend url - test.<your_suite>/admin
