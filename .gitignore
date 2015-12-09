@@ -1,3 +1,5 @@
 .git
 .vagrant
 vagrant/vagrant.yaml
+vagrant/vhost-test.conf
+vagrant/vhost.conf

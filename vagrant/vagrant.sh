@@ -5,7 +5,6 @@ github_token=$(echo "$2")
 swapsize=$(echo "$3")
 timezone=$(echo "$4")
 sitename=$(echo "$5")
-sitenametest=test.$(echo "$5")
 databasename=$(echo "$6")
 databasepassword=$(echo "$7")
 
@@ -76,15 +75,15 @@ fi
 # create nginx config
 if [ ! -f /etc/nginx/sites-enabled/${sitename} ]; then
     echo "* * * * CONFIGURE SITE ${sitename}* * * *"
-    sudo sed -e "s/\${site_name}/${sitename}/"  vhost.conf.dist > /var/www/vhost.conf
-    sudo ln -s /var/www/vhost.conf /etc/nginx/sites-enabled/${sitename}
+    sudo sed -e "s/\${site_name}/${sitename}/"  /var/www/vagrant/vhost.conf.dist > /var/www/vagrant/vhost.conf
+    sudo ln -s /var/www/vagrant/vhost.conf /etc/nginx/sites-enabled/${sitename}
 fi
 
 # create nginx config test
-if [ ! -f /etc/nginx/sites-enabled/${sitenametest} ]; then
-    echo "* * * * CONFIGURE SITE ${sitenametest}* * * *"
-    sudo sed -e "s/\${site_name}/${sitenametest}/"  vhost-test.conf.dist > /var/www/vhost-test.conf
-    sudo ln -s /var/www/vhost-test.conf /etc/nginx/sites-enabled/${sitenametest}
+if [ ! -f /etc/nginx/sites-enabled/test.${sitename} ]; then
+    echo "* * * * CONFIGURE SITE test.${sitename}* * * *"
+    sudo sed -e "s/\${site_name}/test.${sitename}/"  /var/www/vagrant/vhost-test.conf.dist > /var/www/vagrant/vhost-test.conf
+    sudo ln -s /var/www/vagrant/vhost-test.conf /etc/nginx/sites-enabled/test.${sitename}
 fi
 
 #php /var/www/console/yii app/setup --interactive=0

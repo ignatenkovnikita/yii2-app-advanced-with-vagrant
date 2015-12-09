@@ -15,7 +15,7 @@ server {
 #        auth_basic_user_file /etc/nginx/.${site_name}-htpasswd;
         root  /var/www/frontend/web;
 
-        try_files  $uri /frontend/web/index.php?$args;
+        try_files  $uri /frontend/web/index-test.php?$args;
 
         # avoiding processing of calls to non-existing static files by Yii
         location ~ \.(js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar)$ {
@@ -30,7 +30,7 @@ server {
         alias  /var/www/backend/web;
 
         rewrite  ^(/admin)/$ $1 permanent;
-        try_files  $uri /backend/web/index.php?$args;
+        try_files  $uri /backend/web/index-test.php?$args;
     }
 
     # avoiding processing of calls to non-existing static files by Yii
